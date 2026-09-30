@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Executive SP Performance Dashboard</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f7fb;--card:#fff;--tx:#0f172a;--mu:#64748b;--bd:#e2e8f0;--pr:#4f46e5;--pl:#eef2ff;--gn:#059669;--rd:#dc2626;--am:#f59e0b;--dk:#111633;--dk2:#1c2150}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0b1020;--card:#141a30;--tx:#e6e9f5;--mu:#94a3b8;--bd:#263050;--pr:#818cf8;--pl:#1e2450;--gn:#34d399;--rd:#f87171}}
+:root[data-theme=dark]{--bg:#0b1020;--card:#141a30;--tx:#e6e9f5;--mu:#94a3b8;--bd:#263050;--pr:#818cf8;--pl:#1e2450;--gn:#34d399;--rd:#f87171}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.w{max-width:1240px;margin:0 auto;padding:16px}
+header{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-start}
+h1{font-size:22px;margin:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.logo{background:var(--pr);color:#fff;border-radius:10px;padding:6px 9px}
+.badge{font-size:11px;font-weight:600;background:var(--pl);color:var(--pr);padding:3px 9px;border-radius:7px}.sub{color:var(--mu);font-size:12px;max-width:620px;margin-top:4px}
+.pills{display:flex;background:var(--pl);border-radius:12px;padding:4px;gap:2px;flex-wrap:wrap}.pills button{border:0;background:none;color:var(--mu);font-weight:600;padding:7px 12px;border-radius:9px;cursor:pointer;font-size:12px}.pills button.on{background:var(--pr);color:#fff}
+nav{display:flex;gap:6px;margin:14px 0;overflow-x:auto;border-bottom:1px solid var(--bd);padding-bottom:10px}nav button{white-space:nowrap;border:0;background:none;color:var(--tx);font-weight:600;padding:8px 13px;border-radius:9px;cursor:pointer;font-size:12px}nav button.on{background:var(--tx);color:var(--bg)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;align-items:center}
+.filters label{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;display:flex;flex-direction:column;gap:3px}
+select,input{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:9px;padding:7px 9px;font-size:12px;min-width:110px}input{min-width:200px}
+.grid{display:grid;gap:12px;margin:14px 0}.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;min-width:0}.c h3{margin:0 0 2px;font-size:14px}.c .s{color:var(--mu);font-size:11px;margin-bottom:10px}
+.k{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase}.v{font-size:28px;font-weight:800;margin:6px 0 2px}.d{font-size:11px;color:var(--mu)}
+.bar{height:7px;background:var(--bd);border-radius:9px;overflow:hidden;margin:4px 0}.bar i{display:block;height:100%;background:var(--pr);border-radius:9px}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:12px;align-items:baseline}.row b{white-space:nowrap}.mu{color:var(--mu);font-size:11px}
+.dark{background:linear-gradient(135deg,var(--dk),var(--dk2));border-radius:16px;padding:18px;color:#e5e7ff}.dark h2{margin:0 0 12px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#c7d2fe}
+.dark .grid{margin:0}.ins{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px;font-size:12px}.ins b{display:block;color:#fbbf24;margin-bottom:4px}
+table{width:100%;border-collapse:collapse;font-size:12px}th{font-size:10px;text-transform:uppercase;color:var(--mu);text-align:right;padding:8px 6px;border-bottom:1px solid var(--bd);white-space:nowrap}td{padding:8px 6px;border-bottom:1px solid var(--bd);text-align:right;vertical-align:middle}th:first-child,td:first-child,td.l,th.l{text-align:left}
+.tw{overflow-x:auto}tr.cl{cursor:pointer}tr.cl:hover{background:var(--pl)}
+.chip{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;background:var(--pl);color:var(--pr);margin:1px}.chip.r{background:#fee2e2;color:#b91c1c}.chip.g{background:#d1fae5;color:#047857}.chip.a{background:#fef3c7;color:#b45309}
+.gn{color:var(--gn)}.rd{color:var(--rd)}.hm{padding:6px;border-radius:6px;text-align:center;font-weight:600}
+.note{font-size:11px;color:var(--mu);margin:10px 0}.hide{display:none}
+</style></head><body><div class="w">
+<header><div><h1><span class="logo">▮▮</span>Executive SP Performance Dashboard <span class="badge" id="per">Review</span><span class="badge">#N/A cohort excluded</span></h1>
+<div class="sub">Agent, LT, KAM and category performance: cohort, outreach, conversion, problems and opportunity. Only sellers assigned to an agent are counted.</div></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end"><div class="pills" id="scope"></div><button class="badge" id="sh" style="border:0;cursor:pointer;padding:8px 12px">🔗 Copy link to this view</button></div></header>
+<nav id="tabs"></nav>
+<div class="c" id="src" style="margin:0 0 12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:10px 14px"></div>
+<div class="filters" id="flt"></div>
+<main id="main"></main>
+<div class="note">Converted = Final Campaign Status “Active” (Master Worksheet) or plan sold / activated (Category Sprints). Reached = any call answered or call-back agreed. Month = the month of each worksheet tab; the 1st-call date range leaves out sellers not yet called. Platform figures (selected period tabs) are as reported in the workbook; untapped sellers are estimated as Active Sellers ÷ Participation − Active Sellers.</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* ===== DATA ENGINE: turns your workbook tabs into dashboard data ===== */
+const s=v=>v==null?'':v instanceof Date?v.toISOString().slice(0,10):String(v).trim();
+const rch=v=>{v=s(v).toLowerCase();return v.startsWith('reached')||v=='call back'};
+function reason(c){c=c.toLowerCase();if(!c)return'';const h=k=>k.some(x=>c.includes(x));
+if(h(['not interested','not now','no reason','myself']))return'Not Interested';
+if(h(['unreach','not reach','not picking','network','wrong number','switched','call dropped']))return'Unreachable';
+if(c.includes('delist'))return'Delisted';
+if(h(['call back','follow','pending','next','tomorrow','day','week','month']))return'Follow-up / Call Back';
+if(c.includes('holiday'))return'Holiday Mode';if(h(['stock','fund','budget']))return'Stock / Funds';
+if(c.includes('paused'))return'Paused';if(h(['sold','active','done']))return'Positive';return'Other'}
+const MN={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12},MRE=/\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b/i;
+const toD=v=>{if(v==null||v==='')return null;const d=typeof v=='number'?new Date(Math.round((v-25569)*864e5)):new Date(v);return isNaN(d)?null:d};
+const dstr=v=>{const d=toD(v);return d?d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'):''};
+const mode=a=>{const m={};a.forEach(x=>m[x]=(m[x]||0)+1);return Object.keys(m).sort((x,y)=>m[y]-m[x])[0]||''};
+const wk=v=>{const d=toD(v);if(!d)return 0;const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())),n=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-n);
+return Math.ceil(((t-new Date(Date.UTC(t.getUTCFullYear(),0,1)))/864e5+1)/7)};
+function mkey(name,part,fb){const m=name.match(MRE);if(m){const yr=(name.match(/\b(20\d\d)\b/)||[])[1]||mode(part.map(r=>r[17].slice(0,4)).filter(Boolean))||String(new Date().getFullYear());return yr+'-'+String(MN[m[1].slice(0,3).toLowerCase()]).padStart(2,'0')}
+return fb||mode(part.map(r=>r[17].slice(0,7)).filter(Boolean))||'Unknown'}
+function tbl(a){const h=a.findIndex(r=>r&&r.some(c=>/^(seller|vendor) name$/i.test(s(c))));if(h<0)return[];const cols={};
+a[h].forEach((c,i)=>{if(s(c))cols[s(c).toLowerCase()]=i});const own=Object.keys(cols).find(k=>/owner/.test(k));
+return a.slice(h+1).filter(r=>r.some(c=>s(c))).map(r=>k=>{const i=k==='__own'?cols[own]:cols[k.toLowerCase()];return i==null?'':r[i]})}
+const FAM={'Electronics':['Appliances','TVs, Audio and Video','Cameras & Accessories'],'Fashion':["Men's clothing","Women's clothing","Men's shoes","Women's shoes","Men's accessories","Women's accessories",'Boys','Girls','Fashion'],'Computing':['Computing','Tablets & Accessories'],'Home & Office':['Home','Household care'],'Phones & Tablets':['Phones'],'Health & Beauty':['Beauty & perfumes'],'Automobile':['Automotive & Motorcycles'],'Gaming':['Games & Consoles'],'Musical Instruments':['Musical Instruments'],'Books, Movies and Music':['Books & Stationery'],'Baby Products':['Kids and Baby'],'Sporting Goods':['Sport & Fitness'],'Grocery':['Food cupboard','Beverages']};
+function plat(a){const rows=a.slice(1).filter(r=>s(r[0])),tr=rows.find(r=>s(r[0])=='Grand Total')||[];
+const d=rows.filter(r=>s(r[0])!='Grand Total').map(r=>{const p=+r[10]||0,ac=+r[1]||0,u=p>0?ac/p:0;return{c:s(r[0]),a:ac,i:+r[2]||0,k:+r[3]||0,n:+r[4]||0,sp:+r[5]||0,sa:+r[6]||0,ro:+r[7]||0,p,u,t:p>0?u-ac:0}});
+const fine=d.map(x=>[x.c,x.a,x.i,x.k,x.n,Math.round(x.sp),Math.round(x.sa),+x.ro.toFixed(2),+x.p.toFixed(4),Math.round(x.t)]),fam=[];
+for(const[f,subs]of Object.entries(FAM)){const g=d.filter(x=>subs.includes(x.c));if(!g.length)continue;const sm=k=>g.reduce((t,x)=>t+x[k],0),sp=sm('sp'),sa=sm('sa'),u=sm('u');
+fam.push([f,sm('a'),sm('i'),sm('k'),sm('n'),Math.round(sp),Math.round(sa),sp?+(sa/sp).toFixed(2):0,u?+(sm('a')/u).toFixed(4):0,Math.round(sm('t'))])}
+return{fine,fam,tot:[+tr[1]||0,+tr[2]||0,+tr[3]||0,+tr[4]||0,Math.round(+tr[5]||0),Math.round(+tr[6]||0),+(+tr[7]||0).toFixed(2),+tr[10]||0]}}
+function build(sh){const nm=Object.keys(sh),all=re=>nm.filter(n=>re.test(n));
+const ms=all(/agent worksheet/i),fus=all(/full local/i),lts=all(/\blt\b.*cat/i),kms=all(/kam.*cat/i);
+const miss=[['"…Agent worksheet"',ms],['"…Full Local Seller View"',fus],['"…LT Cat Performance"',lts],['"…KAM Cat Performance"',kms]].filter(x=>!x[1].length).map(x=>x[0]);
+if(miss.length)throw new Error('Missing tab(s): '+miss.join(', '));
+const out=[],keys=[];
+ms.forEach(n=>{const part=[];tbl(sh[n]).forEach(g=>{const ow=s(g('__own'));if(!ow||ow=='#N/A')return;
+const st=[g('Status 1st Call'),g('Status 2nd Call'),g('Status 3rd Call')].map(s),at=+st.some(Boolean),rc=+st.some(rch),cv=+(s(g('Final Campaign Status'))=='Active');
+let rs=reason(s(g('Comment')));if(!rs&&at&&!rc)rs='Unreachable';if(cv&&(!rs||rs=='Positive'))rs='Positive';
+part.push([s(g('Seller Name')),ow.split(' ')[0],s(g('Top Category')),s(g('Battle')),'M',at,rc,cv,rs,'',Math.round(+g('Total GMV')||0),Math.round(+g('LM Ad Spend')||0),+g('LM ROAS')||0,wk(g('1st Call Date')),0,+(s(g('LM Status'))=='Active'),s(g('Final Campaign Status')),dstr(g('1st Call Date')),''])});
+const k=mkey(n,part);keys.push(k);part.forEach(r=>{r[18]=k;out.push(r)})});
+const lastM=keys.sort().pop();
+[['Home',/home/i],['Phones',/phone/i],['Fashion',/fashion/i],['Beauty',/beauty/i]].forEach(([cat,re])=>all(/category worksheet/i).filter(x=>re.test(x)).forEach(n=>{const part=[];
+tbl(sh[n]).forEach(g=>{const ow=s(g('__own'));if(!ow||ow=='#N/A')return;const st=[g('1st Call Status'),g('2nd Call Status')].map(s),at=+st.some(Boolean),rc=+st.some(rch),
+pl=parseFloat(g('Plan Activated'))||0,cm=s(g('Status/Comment')),stage=s(g('Progress Stage')),cv=+(pl>0||cm=='Sold'||stage=='Activated');
+let rs=cv?'Positive':reason(cm);if(!rs&&at&&!rc)rs='Unreachable';
+part.push([s(g('Vendor Name'))||s(g('Seller Name')),ow.split(' ')[0],cat,s(g('Battle')),'C',at,rc,cv,rs,s(g('Tier / Velocity')),0,0,0,wk(g('1st Call Date')),pl,0,stage||(cv?'Activated':at?'Attempted':'Not Started'),dstr(g('1st Call Date')),''])});
+const k=mkey(n,part,lastM);part.forEach(r=>{r[18]=k;out.push(r)})}));
+const PP={},pers=[];fus.forEach(n=>{const lab=n.replace(/\s*full local.*/i,'').trim()||n,pick=(l,re)=>l.filter(x=>x.replace(re,'').trim()===lab).pop()||l[l.length-1];
+PP[lab]={FULL:plat(sh[n]),LT:plat(sh[pick(lts,/\s*lt.*/i)]),KAM:plat(sh[pick(kms,/\s*kam.*/i)])};pers.push(lab)});
+return{R:out,PP,pers,months:[...new Set(out.map(r=>r[18]))].sort()}}
+
+/* ===== SETTINGS: paste your Google Apps Script Web App URL between the quotes to go live ===== */
+const SHEET_URL="https://script.google.com/a/macros/jumia.com/s/AKfycbw9UtTuC3UKHuUchPOE7WVyJvBIrUNIZRL6ZAlwcQZTt_sliz_IFhwHqZvsytS4SDHnkw/exec";
+let R=[],P=null,PER="",PP={},MONTHS=[];
+const N=0,AG=1,CT=2,BT=3,SR=4,AT=5,RC=6,CV=7,RS=8,TR=9,GM=10,SP=11,RO=12,WK=13,PL=14,LM=15,ST=16,DT=17,MO=18;
+const $=id=>document.getElementById(id),f0=n=>Math.round(n).toLocaleString(),pc=(a,b)=>b?(100*a/b).toFixed(1)+'%':'–',pn=(a,b)=>b?100*a/b:0;
+const FM={Home:'Home & Office',Phones:'Phones & Tablets',Fashion:'Fashion',Beauty:'Health & Beauty'};
+const S={scope:'M',tab:'sg',week:'',battle:'',cat:'',agent:'',q:'',seg:'FULL',months:[],from:'',to:'',per:''};
+const TABS=[['ov','Executive Overview'],['ag','Agent Scorecard'],['ca','Category Deep-Dive'],['sg','LT · KAM · Local'],['lg','Seller Logs']];
+const BAD=['Not Interested','Unreachable','Delisted','Holiday Mode','Stock / Funds','Paused'];
+const rows=()=>R.filter(r=>r[SR]==S.scope&&(!S.months.length||S.months.includes(r[MO]))&&(!S.from||(r[DT]&&r[DT]>=S.from))&&(!S.to||(r[DT]&&r[DT]<=S.to))&&(!S.week||r[WK]==S.week)&&(!S.battle||r[BT]==S.battle)&&(!S.cat||r[CT]==S.cat)&&(!S.agent||r[AG]==S.agent)&&(!S.q||(r[N]+r[RS]+r[ST]).toLowerCase().includes(S.q.toLowerCase())));
+const grp=(a,k)=>{const m={};a.forEach(r=>(m[k(r)]??=[]).push(r));return m};
+const st=a=>({n:a.length,at:a.reduce((s,r)=>s+r[AT],0),rc:a.reduce((s,r)=>s+r[RC],0),cv:a.reduce((s,r)=>s+r[CV],0),pl:a.reduce((s,r)=>s+r[PL],0)});
+const frict=a=>{const m={};a.forEach(r=>{if(BAD.includes(r[RS]))m[r[RS]]=(m[r[RS]]||0)+1});return Object.entries(m).sort((x,y)=>y[1]-x[1])};
+const bar=(p,c)=>`<div class="bar"><i style="width:${Math.min(100,p)}%;${c?'background:'+c:''}"></i></div>`;
+const uniq=(k,sc)=>[...new Set(R.filter(r=>r[SR]==sc).map(r=>r[k]))].filter(Boolean).sort((a,b)=>k==WK?a-b:(''+a).localeCompare(b));
+const fam=r=>S.scope=='M'?r[CT]:FM[r[CT]];
+let PF={};
+function catStats(a){const g=grp(a,r=>r[CT]);return Object.entries(g).map(([c,x])=>{const s=st(x),fr=frict(x),p=PF[fam(x[0])],att=s.at,bad=fr.reduce((t,e)=>t+e[1],0);
+return{c,...s,fr,cr:pn(s.rc,s.at),vr:pn(s.cv,s.n),prob:pn(bad,s.at||1),roas:p?p[7]:0,part:p?p[8]:0,unt:p?p[9]:0,opp:p?p[9]*p[7]/1000:0}}).sort((x,y)=>y.n-x.n)}
+const mlab=k=>k=='Unknown'?k:new Date(k+'-15T00:00').toLocaleString('en',{month:'short',year:'numeric'});
+const setPer=v=>{S.per=v;P=PP[v];PER=v;PF=Object.fromEntries(P.FULL.fam.map(x=>[x[0],x]));$('per').textContent=PER+' · Review'};
+const alignPer=()=>{if(S.months.length!=1||!P)return;const mm=+S.months[0].slice(5),c=Object.keys(PP).filter(l=>{const m=l.match(MRE);return m&&MN[m[1].slice(0,3).toLowerCase()]==mm}).pop();if(c&&c!=S.per)setPer(c)};
+const tm=k=>{S.months=S.months.includes(k)?S.months.filter(x=>x!=k):[...S.months,k].sort();alignPer();opts();draw()};
+const monthsUI=()=>`<label>Months<div style="display:flex;gap:4px;flex-wrap:wrap"><span class="chip ${S.months.length?'':'g'}" style="cursor:pointer;padding:6px 10px" onclick="S.months=[];opts();draw()">All months</span>${MONTHS.map(k=>`<span class="chip ${S.months.includes(k)?'g':''}" style="cursor:pointer;padding:6px 10px" onclick="tm('${k}')">${mlab(k)}</span>`).join('')}</div></label><label>1st call from<input type="date" value="${S.from}" onchange="S.from=this.value;draw()"></label><label>to<input type="date" value="${S.to}" onchange="S.to=this.value;draw()"></label>`;
+function opts(){const o=(id,l,v,cur)=>`<label>${l}<select data-k="${id}"><option value="">All</option>${v.map(x=>`<option ${cur==x?'selected':''}>${x}</option>`).join('')}</select></label>`;
+$('flt').innerHTML=o('week','Week',uniq(WK,S.scope).filter(x=>x),S.week)+o('battle','Battle',uniq(BT,S.scope),S.battle)+o('cat','Category',uniq(CT,S.scope),S.cat)+o('agent','Agent',uniq(AG,S.scope),S.agent)+`${monthsUI()}<label>Search<input id="q" placeholder="Seller, status, problem…" value="${S.q}"></label><button class="badge" style="border:0;cursor:pointer;align-self:end;padding:8px 12px" onclick="Object.assign(S,{week:'',battle:'',cat:'',agent:'',q:'',months:[],from:'',to:''});opts();draw()">Reset</button>`;
+document.querySelectorAll('#flt select').forEach(e=>e.onchange=()=>{S[e.dataset.k]=e.value;draw()});$('q').oninput=e=>{S.q=e.target.value;draw2()};}
+let t2;const draw2=()=>{clearTimeout(t2);t2=setTimeout(draw,250)};
+function head(){$('scope').innerHTML=[['M','Master Worksheet (all categories)'],['C','Category Sprints (Home · Phones · Fashion · Beauty)']].map(([k,l])=>`<button class="${S.scope==k?'on':''}" onclick="S.scope='${k}';Object.assign(S,{week:'',battle:'',cat:'',agent:'',q:'',months:[],from:'',to:''});opts();draw()">${l}</button>`).join('');
+$('tabs').innerHTML=TABS.map(([k,l])=>`<button class="${S.tab==k?'on':''}" onclick="S.tab='${k}';draw()">${l}${k=='lg'?` <span class="badge">${f0(rows().length)}</span>`:''}</button>`).join('');
+$('flt').style.display=S.tab=='sg'?'none':'flex'}
+function kpi(l,v,d,b){return`<div class="c"><div class="k">${l}</div><div class="v">${v}</div>${b!=null?bar(b):''}<div class="d">${d}</div></div>`}
+function insights(a,cs,ags){const I=[],big=cs.filter(c=>c.n>=30);
+const top=[...cs].sort((x,y)=>y.cv-x.cv)[0],bv=[...big].sort((x,y)=>y.vr-x.vr)[0],wp=[...big].sort((x,y)=>y.prob-x.prob)[0],op=[...cs].filter(c=>c.opp).sort((x,y)=>y.opp-x.opp)[0];
+const fr=frict(a),tot=st(a).cv,wa=[...ags].sort((x,y)=>x.cr-y.cr)[0],ta=[...ags].sort((x,y)=>y.cv-x.cv)[0];
+if(top)I.push(['Most Activated Category',`${top.c} delivered ${f0(top.cv)} conversions (${pc(top.cv,tot)} of all) from ${f0(top.n)} assigned sellers.`]);
+if(bv)I.push(['Highest Conversion Rate',`${bv.c} converts ${bv.vr.toFixed(1)}% of its cohort (${f0(bv.cv)}/${f0(bv.n)}), the best among categories with 30+ sellers.`]);
+if(wp)I.push(['Most Problematic Category',`${wp.c}: ${wp.prob.toFixed(0)}% of attempted sellers hit a blocker, led by “${wp.fr[0]?wp.fr[0][0]:'n/a'}”. Conversion only ${wp.vr.toFixed(1)}%.`]);
+if(op)I.push(['Biggest Opportunity',`${fam(a.find(r=>r[CT]==op.c))}: ~${f0(op.unt)} untapped sellers at ${op.roas}x ROAS and ${(op.part*100).toFixed(0)}% participation.`]);
+if(fr[0])I.push(['Primary Drop-off Barrier',`“${fr[0][0]}” accounts for ${f0(fr[0][1])} sellers (${pc(fr[0][1],fr.reduce((t,e)=>t+e[1],0))} of blocked sellers).`]);
+if(ta&&wa)I.push(['Agent Spotlight',`${ta.a} leads on conversions (${f0(ta.cv)}). ${wa.a} has the lowest contact rate (${wa.cr.toFixed(0)}%), the first coaching lever.`]);
+return I}
+function agStats(a){return Object.entries(grp(a,r=>r[AG])).map(([k,x])=>{const s=st(x),g=grp(x,r=>r[BT]),f=frict(x);return{a:k,...s,cr:pn(s.rc,s.at),ar:pn(s.at,s.n),vr:pn(s.cv,s.n),g,f}}).sort((x,y)=>y.vr-x.vr)}
+function ov(a){const s=st(a),cs=catStats(a),ags=agStats(a),bt=grp(a,r=>r[BT]),T=P.FULL.tot;
+let h=`<div class="grid g4">${kpi('Cohort (assigned)',f0(s.n),`${f0(Object.keys(grp(a,r=>r[AG])).length)} agents · ${cs.length} categories`)}${kpi('Attempted',f0(s.at),pc(s.at,s.n)+' of cohort',pn(s.at,s.n))}${kpi('Reached',f0(s.rc),pc(s.rc,s.at)+' contact rate',pn(s.rc,s.at))}${kpi('Converted',f0(s.cv),pc(s.cv,s.n)+' conversion rate',pn(s.cv,s.n))}</div>
+<div class="c"><h3>Platform snapshot · ${PER} (Full Local)</h3><div class="s">Context for the selected cohort</div><div class="grid g4" style="margin:0">${[['Active sellers',f0(T[0])],['Ad spend',f0(T[4])],['Ad sales',f0(T[5])],['Blended ROAS',T[6]+'x'],['Participation',(T[7]*100).toFixed(1)+'%'],['Clicks',f0(T[2])],['Conversions',f0(T[3])],['Impressions',f0(T[1])]].map(x=>`<div><div class="k">${x[0]}</div><b style="font-size:18px">${x[1]}</b></div>`).join('')}</div></div>
+<div class="dark" style="margin-top:14px"><h2>Executive intelligence & strategic takeaways</h2><div class="grid g3">${insights(a,cs,ags).map(i=>`<div class="ins"><b>${i[0]}</b>${i[1]}</div>`).join('')}</div></div>
+<h3 style="margin:18px 0 0">Activation battle breakdown</h3><div class="grid g4">${Object.entries(bt).sort((x,y)=>y[1].length-x[1].length).map(([b,x])=>{const q=st(x);return`<div class="c"><div class="row"><span class="chip">${b}</span><b>${f0(q.n)} sellers</b></div><div class="mu" style="margin:8px 0 4px">Converted</div><div class="v" style="font-size:22px;margin:0">${f0(q.cv)}</div>${bar(pn(q.cv,q.n))}<div class="row"><span class="mu">Conv rate</span><b class="${q.cv?'gn':''}">${pc(q.cv,q.n)}</b></div><div class="row"><span class="mu">Contact rate</span><b>${pc(q.rc,q.at)}</b></div></div>`}).join('')}</div>
+<div class="grid g2"><div class="c"><h3>Category performance</h3><div class="s">Cohort, conversions and conversion rate</div>${cs.map(c=>`<div class="row"><span><b>${c.c}</b> <span class="mu">${f0(c.n)} sellers | ${f0(c.cv)} converted</span></span><b>${c.vr.toFixed(1)}%</b></div>${bar(c.vr*(100/Math.max(...cs.map(z=>z.vr),1)))}`).join('')}</div>
+<div class="c"><h3>Primary drop-off friction</h3><div class="s">Blocked sellers by reason</div>${(fr=>fr.map(e=>`<div class="row"><span>${e[0]}</span><b>${f0(e[1])} (${pc(e[1],fr.reduce((t,z)=>t+z[1],0))})</b></div>${bar(pn(e[1],fr[0][1]),'var(--am)')}`).join(''))(frict(a))}</div></div>`;return h}
+function ag(a){const A=agStats(a),bs=[...new Set(a.map(r=>r[BT]))].sort(),cats=catStats(a).slice(0,8).map(c=>c.c),hi=Math.max(...A.map(x=>x.vr),1),lo=Math.min(...A.map(x=>x.cr));
+const hm=v=>`background:rgba(79,70,229,${Math.min(.85,v/25)});color:${v>12?'#fff':'inherit'}`;
+return`<div class="c"><h3>Agent scorecard</h3><div class="s">Click a row to filter the whole dashboard to that agent</div><div class="tw"><table><tr><th>Agent</th><th>Cohort</th><th>Attempted</th><th>Reached</th><th>Contact %</th><th>Converted</th><th>Conv %</th>${bs.map(b=>`<th>${b}</th>`).join('')}<th class="l">Top problems</th></tr>
+${A.map(x=>`<tr class="cl" onclick="S.agent='${x.a}';opts();draw()"><td><b>${x.a}</b> ${x.vr==hi?'<span class="chip g">Top</span>':''}${x.cr==lo?'<span class="chip a">Coach contact</span>':''}</td><td>${f0(x.n)}</td><td>${pc(x.at,x.n)}</td><td>${f0(x.rc)}</td><td>${x.cr.toFixed(1)}%</td><td>${f0(x.cv)}</td><td><b>${x.vr.toFixed(1)}%</b>${bar(x.vr*100/hi)}</td>${bs.map(b=>{const q=x.g[b]?st(x.g[b]):null;return`<td>${q?f0(q.cv)+'/'+f0(q.n):'–'}</td>`}).join('')}<td class="l">${x.f.slice(0,3).map(e=>`<span class="chip r">${e[0]} ${e[1]}</span>`).join('')}</td></tr>`).join('')}</table></div></div>
+<div class="c" style="margin-top:14px"><h3>Agent × category conversion rate</h3><div class="s">Top categories by cohort · conversions in brackets</div><div class="tw"><table><tr><th>Agent</th>${cats.map(c=>`<th>${c}</th>`).join('')}</tr>${A.map(x=>{const g=grp(a.filter(r=>r[AG]==x.a),r=>r[CT]);return`<tr><td><b>${x.a}</b></td>${cats.map(c=>{const s=st(g[c]||[]);const v=pn(s.cv,s.n);return`<td><div class="hm" style="${hm(v)}">${s.n?v.toFixed(0)+'% <span style="font-weight:400">('+s.cv+')</span>':'–'}</div></td>`}).join('')}</tr>`}).join('')}</table></div></div>`}
+function ca(a){const cs=catStats(a),mx=Math.max(...cs.map(c=>c.opp),1),best=[...cs].sort((x,y)=>y.cv-x.cv)[0];
+const card=(t,c,v)=>c?`<div class="c"><div class="k">${t}</div><div class="v" style="font-size:20px">${c.c}</div><div class="d">${v}</div></div>`:'';
+const big=cs.filter(c=>c.n>=30),wp=[...big].sort((x,y)=>y.prob-x.prob)[0],un=[...cs].sort((x,y)=>y.unt-x.unt)[0],ws=[...cs].filter(c=>c.part&&c.part<.25&&c.roas).sort((x,y)=>y.roas-x.roas)[0];
+return`<div class="grid g4">${card('Most activated',best,f0(best&&best.cv)+' conversions')}${card('Most problematic',wp,wp&&wp.prob.toFixed(0)+'% blocked · top: '+(wp.fr[0]||['n/a'])[0])}${card('Largest untapped pool',un,'~'+f0(un&&un.unt)+' sellers not yet running ads')}${card('White space (ROAS high, participation <25%)',ws,ws&&ws.roas+'x ROAS · '+(ws.part*100).toFixed(0)+'% participation')}</div>
+<div class="c"><h3>Category deep-dive: problems and opportunity</h3><div class="s">Outreach outcome from the selected cohort, joined to Full Local platform data (${PER})</div><div class="tw"><table><tr><th>Category</th><th>Cohort</th><th>Contact %</th><th>Converted</th><th>Conv %</th><th class="l">Prevalent problems</th><th>Platform ROAS</th><th>Participation</th><th>Untapped (est.)</th><th>Opportunity index</th></tr>
+${cs.map(c=>`<tr><td><b>${c.c}</b></td><td>${f0(c.n)}</td><td>${c.cr.toFixed(0)}%</td><td>${f0(c.cv)}</td><td><b>${c.vr.toFixed(1)}%</b></td><td class="l">${c.fr.slice(0,3).map(e=>`<span class="chip r">${e[0]} ${pc(e[1],c.at)}</span>`).join('')||'–'}</td><td>${c.roas?c.roas+'x':'–'}</td><td>${c.part?(c.part*100).toFixed(0)+'%':'–'}</td><td>${c.unt?f0(c.unt):'–'}</td><td>${c.opp?`<b>${c.opp.toFixed(0)}</b>${bar(c.opp*100/mx,'var(--gn)')}`:'–'}</td></tr>`).join('')}</table></div>
+<div class="note">Opportunity index = untapped sellers × ROAS ÷ 1,000. High index = many sellers not yet advertising in a category that pays back well.</div></div>`}
+function sg(){const p=P[S.seg],T=p.tot,fm=[...p.fam].sort((x,y)=>y[4]-x[4]),ft=P.FULL.tot,mx=Math.max(...p.fam.map(x=>x[7]));
+const pills=`<label class="k" style="display:flex;gap:6px;align-items:center;float:right">Platform period<select onchange="setPer(this.value);draw()">${Object.keys(PP).map(l=>`<option ${l==S.per?'selected':''}>${l}</option>`).join('')}</select></label><div class="pills" style="width:fit-content;margin:0 0 12px">${[['FULL','Full Local'],['LT','LT'],['KAM','KAM']].map(([k,l])=>`<button class="${S.seg==k?'on':''}" onclick="S.seg='${k}';draw()">${l}</button>`).join('')}</div>`;
+const tb=(rs,fine)=>`<div class="tw"><table><tr><th>${fine?'Mirakl category':'Category'}</th><th>Active sellers</th><th>Impressions</th><th>Clicks</th><th>Conversions</th><th>Ad spend</th><th>Ad sales</th><th>ROAS</th><th>Participation</th><th>Untapped (est.)</th></tr>${rs.map(x=>`<tr><td><b>${x[0]}</b></td><td>${f0(x[1])}</td><td>${f0(x[2])}</td><td>${f0(x[3])}</td><td>${f0(x[4])}</td><td>${f0(x[5]||x[4])}</td><td>${f0(x[6])}</td><td><b>${x[7]}x</b>${bar(x[7]*100/mx,x[7]>=10?'var(--gn)':x[7]<5?'var(--am)':'')}</td><td>${(x[8]*100).toFixed(1)}%</td><td>${f0(x[9])}</td></tr>`).join('')}</table></div>`;
+const fix=rs=>rs.map(x=>[x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7],x[8],x[9]]);
+return pills+`<div class="grid g4">${kpi('Active sellers',f0(T[0]),PER)}${kpi('Ad spend',f0(T[4]),'Ad sales '+f0(T[5]))}${kpi('ROAS',T[6]+'x','Blended')}${kpi('Participation',(T[7]*100).toFixed(1)+'%','Share of category sellers running SP',T[7]*100)}</div>
+${S.seg!='FULL'?`<div class="c"><h3>${S.seg} share of Full Local</h3><div class="s">Sellers, spend and sales</div><div class="grid g3" style="margin:0">${[['Sellers',T[0],ft[0]],['Ad spend',T[4],ft[4]],['Ad sales',T[5],ft[5]]].map(x=>`<div><div class="row"><span>${x[0]}</span><b>${pc(x[1],x[2])}</b></div>${bar(pn(x[1],x[2]))}</div>`).join('')}</div>${S.seg=='KAM'?'<div class="note">KAM view is available at category level only. The agent worksheet lists LT/MT sellers exclusively, so seller-level KAM outreach is not in this file.</div>':''}</div>`:''}
+<div class="c" style="margin-top:14px"><h3>${S.seg=='FULL'?'Full Local':S.seg} · category families</h3><div class="s">Sorted by ad spend · ROAS bars: green ≥10x, amber <5x</div>${tb(fm.map(x=>[x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7],x[8],x[9]]))}</div>
+<div class="c" style="margin-top:14px"><h3>Detailed Mirakl categories</h3><div class="s">Ad spend column shown as reported</div>${tb(p.fine.map(x=>x))}</div>`}
+function lg(a){const x=[...a].sort((p,q)=>q[CV]-p[CV]||q[GM]-p[GM]).slice(0,300);return`<div class="c"><h3>Seller outreach logs</h3><div class="s">Showing ${x.length} of ${f0(a.length)} sellers matching filters · contact details are deliberately excluded</div><div class="tw"><table><tr><th>Seller</th><th>Agent</th><th>Category</th><th>Battle</th><th>Attempted</th><th>Reached</th><th>Outcome / problem</th><th>Status</th><th>Week</th></tr>${x.map(r=>`<tr><td class="l">${r[N]}</td><td>${r[AG]}</td><td>${r[CT]}</td><td><span class="chip">${r[BT]}</span></td><td>${r[AT]?'Yes':'–'}</td><td>${r[RC]?'Yes':'–'}</td><td><span class="chip ${r[CV]?'g':r[RS]?'r':''}">${r[RS]||'–'}</span></td><td>${r[ST]||'–'}</td><td>${r[WK]||'–'}</td></tr>`).join('')}</table></div></div>`}
+const sync=()=>{const p=new URLSearchParams();for(const k of['scope','tab','seg','week','battle','cat','agent','q','per','from','to'])if(S[k])p.set(k,S[k]);if(S.months.length)p.set('months',S.months.join(','));try{history.replaceState(null,'','#'+p)}catch(e){}};
+function draw(){sync();head();if(!P){$('main').innerHTML='<div class="c" style="margin-top:14px"><h3>No data loaded yet</h3><div class="s">Click “Upload .xlsx” above, or set SHEET_URL at the top of this file for a live Google Sheets link.</div></div>';return}const a=S.tab=='sg'?[]:rows();$('main').innerHTML=(a.length||S.tab=='sg'?{ov,ag,ca,sg,lg}[S.tab](a):'<div class="c" style="margin-top:14px">No sellers match these filters.</div>')}
+(()=>{const p=new URLSearchParams(location.hash.slice(1));for(const k of['scope','tab','seg','week','battle','cat','agent','q','per','from','to'])if(p.get(k))S[k]=p.get(k);if(p.get('months'))S.months=p.get('months').split(',');if(!TABS.some(x=>x[0]==S.tab))S.tab='sg';if(!['FULL','LT','KAM'].includes(S.seg))S.seg='FULL'})();
+$('sh').onclick=async()=>{const b=$('sh');try{await navigator.clipboard.writeText(location.href);b.textContent='✓ Link copied'}catch(e){prompt('Copy this link:',location.href)}setTimeout(()=>b.textContent='🔗 Copy link to this view',1800)};
+const bar2=m=>{$('src').innerHTML=`<b style="font-size:12px">${m}</b><span style="flex:1"></span>${SHEET_URL?'<button class="badge" id="rf" style="border:0;cursor:pointer;padding:8px 12px">⟳ Refresh now</button>':''}<label class="badge" style="cursor:pointer;padding:8px 12px">⬆ Upload .xlsx<input type="file" id="fi" accept=".xlsx,.xls" hidden></label>`;
+$('fi').onchange=async e=>{const f=e.target.files[0];if(!f)return;bar2('Reading '+f.name+'…');try{const wb=XLSX.read(await f.arrayBuffer(),{cellDates:true}),o={};wb.SheetNames.forEach(n=>o[n]=XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,defval:''}));apply(o,f.name)}catch(x){bar2('⚠ '+x.message)}};if($('rf'))$('rf').onclick=load};
+function apply(sh,label){try{const o=build(sh);R=o.R;PP=o.PP;MONTHS=o.months;S.months=S.months.filter(k=>MONTHS.includes(k));setPer(PP[S.per]?S.per:o.pers[o.pers.length-1]);
+bar2(label+' · '+f0(R.length)+' assigned sellers · months '+MONTHS.map(mlab).join(', ')+' · platform period '+PER+' · updated '+new Date().toLocaleTimeString());opts();draw()}catch(e){bar2('⚠ '+e.message)}}
+async function load(){if(!SHEET_URL)return;bar2('Loading live data…');
+if(/\/dev(\?|$)/.test(SHEET_URL))return bar2('⚠ SHEET_URL ends in /dev (the test link). Use the Web app URL that ends in /exec.');
+if(!/script\.google\.com\/macros\/s\//.test(SHEET_URL))return bar2('⚠ SHEET_URL is not an Apps Script Web app URL (it should look like https://script.google.com/macros/s/…/exec).');
+let r,x,j;try{r=await fetch(SHEET_URL+(SHEET_URL.includes('?')?'&':'?')+'t='+Date.now())}catch(e){return bar2('⚠ The browser could not fetch the link: it was blocked or offline, or this page is inside a sandboxed preview. Open the page from your GitHub link or as a downloaded file, and test the URL in a new tab.')}
+x=await r.text();try{j=JSON.parse(x)}catch(e){return bar2('⚠ The link returned '+(x.trim().startsWith('<')?'a web page (Google sign-in or an error page) instead of data. Set “Who has access” to Anyone, redeploy as a new version, and check the URL.':'unreadable data (HTTP '+r.status+').'))}
+apply(j,'Live from Google Sheets')}
+bar2(SHEET_URL?'Connecting to Google Sheets…':'No live link set. Upload your workbook (.xlsx) to view it privately.');opts();draw();load();if(SHEET_URL)setInterval(load,6e5);
+</script></body></html>
